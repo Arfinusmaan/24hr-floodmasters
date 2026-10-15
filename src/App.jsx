@@ -14,6 +14,7 @@ import { companyData } from './data/companyData';
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -109,17 +110,23 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <Header currentPath={currentPath} onNavigate={handleNavigate} />
+      <Header
+        currentPath={currentPath}
+        onNavigate={handleNavigate}
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
+      />
       <main id="main-content" role="main">
         {renderContent()}
       </main>
       <Footer onNavigate={handleNavigate} />
 
-      {/* Viewport-fixed Mobile Bottom Bar (Hidden on Desktop, revealed on scroll on Mobile) */}
+      {/* Viewport-fixed Mobile Bottom Bar (Hidden on Desktop, revealed on scroll on Mobile, hidden when nav drawer is open) */}
       <MobileBottomBar
         onOpenQuote={() => handleNavigate('/contact-us')}
         phoneNumber={companyData.phone}
         phoneRaw={companyData.phoneRaw}
+        isNavOpen={mobileMenuOpen}
       />
     </div>
   );

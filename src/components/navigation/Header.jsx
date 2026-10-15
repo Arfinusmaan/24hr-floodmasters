@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { companyData } from '../../data/companyData';
 import './Header.css';
 
-export default function Header({ currentPath, onNavigate }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export default function Header({
+  currentPath,
+  onNavigate,
+  mobileMenuOpen,
+  setMobileMenuOpen
+}) {
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
 
   const handleNavClick = (path, e) => {
     e.preventDefault();
-    setMobileMenuOpen(false);
+    if (setMobileMenuOpen) setMobileMenuOpen(false);
     setServicesDropdownOpen(false);
     onNavigate(path);
     window.scrollTo({ top: 0, behavior: 'smooth' });

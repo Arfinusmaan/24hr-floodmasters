@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './MobileBottomBar.css';
 
-export default function MobileBottomBar({ onOpenQuote, phoneNumber = '(254) 482-1151', phoneRaw = '2544821151' }) {
+export default function MobileBottomBar({
+  onOpenQuote,
+  phoneNumber = '(254) 482-1151',
+  phoneRaw = '2544821151',
+  isNavOpen = false
+}) {
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
   useEffect(() => {
@@ -15,10 +20,13 @@ export default function MobileBottomBar({ onOpenQuote, phoneNumber = '(254) 482-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // When mobile nav drawer is open, explicitly hide floating bar
+  const isVisible = scrolledPastHero && !isNavOpen;
+
   return (
     <div
       id="mobile-action-bar-container"
-      className={`mobile-action-bar-wrap ${scrolledPastHero ? 'bar-revealed' : 'bar-hidden'}`}
+      className={`mobile-action-bar-wrap ${isVisible ? 'bar-revealed' : 'bar-hidden'}`}
       role="region"
       aria-label="Mobile Emergency Actions"
     >
