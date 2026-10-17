@@ -1,5 +1,7 @@
 import React from 'react';
 import { companyData } from '../../data/companyData';
+import SEOHead from '../SEOHead';
+import { getBreadcrumbSchema, getLocalBusinessSchema } from '../../utils/schemaGenerators';
 import './AboutPage.css';
 
 export default function AboutPage({ onNavigate }) {
@@ -78,15 +80,40 @@ export default function AboutPage({ onNavigate }) {
     }
   ];
 
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "About Us", url: "/about-us" }
+  ];
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      getLocalBusinessSchema(),
+      getBreadcrumbSchema(breadcrumbs)
+    ]
+  };
+
   return (
     <div className="about-page-root">
+      <SEOHead
+        title="About 24 Hr FloodMasters | Veteran-Owned Restoration"
+        description="Learn about 24 Hr FloodMasters, founded by U.S. Marine Corps veteran Rene Molina. 24/7 emergency water damage mitigation in Temple, Waco, and Central Texas."
+        canonicalPath="/about-us"
+        ogType="website"
+        ogImage="/images/editorial/about_owner_rene_molina.webp"
+        schema={schema}
+      />
+
       {/* HERO WITH RICH BACKGROUND IMAGE */}
       <section className="about-hero">
         <div className="about-hero-bg-wrap">
           <img
             src="/images/services/response_night_clean.webp"
-            alt="24 Hr FloodMasters emergency fleet response at night"
+            alt="24 Hr FloodMasters emergency fleet response at night in Central Texas"
             className="about-hero-bg"
+            width="1536"
+            height="1024"
+            fetchpriority="high"
           />
           <div className="about-hero-overlay"></div>
         </div>
@@ -129,9 +156,12 @@ export default function AboutPage({ onNavigate }) {
           <div className="about-story-media">
             <div className="founder-frame">
               <img
-                src="/images/editorial/about_owner_rene_molina.jpg"
+                src="/images/editorial/about_owner_rene_molina.webp"
                 alt="Rene Molina, Owner of 24 Hr FloodMasters and U.S. Marine Corps Veteran"
                 className="about-owner-photo"
+                width="1376"
+                height="768"
+                loading="lazy"
               />
               <div className="founder-badge">
                 <span className="badge-title">Rene Molina</span>
@@ -143,6 +173,9 @@ export default function AboutPage({ onNavigate }) {
                 src="/images/hero/hero_tech_clean.webp"
                 alt="Rene Molina inspecting water saturation with moisture detector"
                 className="founder-field-img"
+                width="1536"
+                height="1024"
+                loading="lazy"
               />
               <span className="founder-field-caption">Certified moisture inspection using non-penetrating thermal & impedance meters.</span>
             </div>
@@ -245,9 +278,12 @@ export default function AboutPage({ onNavigate }) {
           </div>
           <div className="about-equip-media">
             <img
-              src="/images/equipment/structural_drying_setup.jpg"
+              src="/images/equipment/structural_drying_setup.webp"
               alt="24 Hr FloodMasters commercial drying setup with dehumidifiers and air movers"
               className="about-equip-img"
+              width="1376"
+              height="768"
+              loading="lazy"
             />
             <span className="equip-caption">Staged commercial drying installation maintaining controlled vapor pressure differentials.</span>
           </div>
@@ -262,6 +298,9 @@ export default function AboutPage({ onNavigate }) {
               src="/images/services/response_night_clean.webp"
               alt="Emergency response vehicle dispatched in Temple TX"
               className="community-img"
+              width="1536"
+              height="1024"
+              loading="lazy"
             />
           </div>
           <div className="community-text">

@@ -1,5 +1,7 @@
 import React from 'react';
 import { companyData } from '../../data/companyData';
+import SEOHead, { SITE_URL } from '../SEOHead';
+import { getBreadcrumbSchema, getLocalBusinessSchema } from '../../utils/schemaGenerators';
 import './BlogPage.css';
 
 export default function BlogPage({ articleSlug, onNavigate }) {
@@ -16,7 +18,7 @@ export default function BlogPage({ articleSlug, onNavigate }) {
       title: "Water Damage Behind Drywall: How Moisture Migrates and What to Do Next",
       readTime: "6 min read",
       date: "Updated October 2026",
-      image: "/images/editorial/blog_walls.jpg",
+      image: "/images/editorial/blog_walls.webp",
       summary: "How water wicks upward through gypsum sheets via capillary action, why surface touch testing fails, and how cavity injectidry systems save walls.",
       author: "Rene Molina · USMC Veteran & Certified Restoration Lead",
       content: [
@@ -36,7 +38,7 @@ export default function BlogPage({ articleSlug, onNavigate }) {
       title: "Signs of Water Damage Under Floors: How to Protect Wood & Vinyl Planks",
       readTime: "7 min read",
       date: "Updated October 2026",
-      image: "/images/editorial/blog_floors.jpg",
+      image: "/images/editorial/blog_floors.webp",
       summary: "How to identify cupping, crowning, subfloor adhesive breakdown, and moisture trapped beneath impermeable luxury vinyl planks before rot sets in.",
       author: "Rene Molina · USMC Veteran & Certified Restoration Lead",
       content: [
@@ -56,7 +58,7 @@ export default function BlogPage({ articleSlug, onNavigate }) {
       title: "How to Tell If Water Damage Is New or Old: A Guide for Insurance Claims",
       readTime: "5 min read",
       date: "Updated October 2026",
-      image: "/images/editorial/blog_ceiling.jpg",
+      image: "/images/editorial/blog_ceiling.webp",
       summary: "Understanding the empirical physical differences between sudden plumbing pipe bursts and gradual long-term seepage to protect your insurance claim rights.",
       author: "Rene Molina · USMC Veteran & Certified Restoration Lead",
       content: [
@@ -77,7 +79,7 @@ export default function BlogPage({ articleSlug, onNavigate }) {
       title: "Water Extraction vs. Structural Drying: Why Pumping Water Is Only 10% of the Job",
       readTime: "6 min read",
       date: "Updated October 2026",
-      image: "/images/equipment/structural_drying_setup.jpg",
+      image: "/images/equipment/structural_drying_setup.webp",
       summary: "Why vacuuming standing water leaves 90% of moisture trapped in building materials, and how psychrometric thermodynamics removes bound water.",
       author: "Rene Molina · USMC Veteran & Certified Restoration Lead",
       content: [
@@ -96,12 +98,63 @@ export default function BlogPage({ articleSlug, onNavigate }) {
   // If viewing single article
   if (articleSlug) {
     const article = articles.find(a => a.slug === articleSlug) || articles[0];
+
+    const breadcrumbs = [
+      { name: "Home", url: "/" },
+      { name: "Guides", url: "/blog" },
+      { name: article.title, url: `/blog/${article.slug}` }
+    ];
+
+    const articleSchema = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "@id": `${SITE_URL}/blog/${article.slug}#article`,
+          "headline": article.title,
+          "description": article.summary,
+          "image": `${SITE_URL}${article.image}`,
+          "author": {
+            "@type": "Person",
+            "name": "Rene Molina",
+            "jobTitle": "Founder & Certified Restoration Lead"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": companyData.name,
+            "logo": {
+              "@type": "ImageObject",
+              "url": `${SITE_URL}/images/brand/logo.png`
+            }
+          },
+          "mainEntityOfPage": `${SITE_URL}/blog/${article.slug}`
+        },
+        getBreadcrumbSchema(breadcrumbs)
+      ]
+    };
+
     return (
       <div className="blog-article-root">
+        <SEOHead
+          title={`${article.title} | FloodMasters`}
+          description={article.summary.slice(0, 155)}
+          canonicalPath={`/blog/${article.slug}`}
+          ogType="article"
+          ogImage={article.image}
+          schema={articleSchema}
+        />
+
         {/* ARTICLE HERO WITH BACKGROUND */}
         <section className="article-hero">
           <div className="article-hero-bg-wrap">
-            <img src={article.image} alt={article.title} className="article-hero-bg" />
+            <img
+              src={article.image}
+              alt={article.title}
+              className="article-hero-bg"
+              width="1536"
+              height="1024"
+              fetchpriority="high"
+            />
             <div className="article-hero-overlay"></div>
           </div>
 
@@ -121,7 +174,14 @@ export default function BlogPage({ articleSlug, onNavigate }) {
         <section className="section-light article-body-section">
           <div className="container-narrow">
             <div className="article-featured-img-wrap">
-              <img src={article.image} alt={article.title} className="article-featured-img" />
+              <img
+                src={article.image}
+                alt={article.title}
+                className="article-featured-img"
+                width="1536"
+                height="1024"
+                loading="lazy"
+              />
               <span className="article-img-caption">Field documentation and structural diagnostic inspection in Central Texas.</span>
             </div>
 
@@ -143,9 +203,12 @@ export default function BlogPage({ articleSlug, onNavigate }) {
 
             <div className="article-author-card">
               <img
-                src="/images/editorial/about_owner_rene_molina.jpg"
+                src="/images/editorial/about_owner_rene_molina.webp"
                 alt="Rene Molina, Owner of 24 Hr FloodMasters"
                 className="author-avatar"
+                width="80"
+                height="80"
+                loading="lazy"
               />
               <div className="author-info">
                 <strong>Rene Molina</strong>
@@ -172,9 +235,31 @@ export default function BlogPage({ articleSlug, onNavigate }) {
     );
   }
 
+  const indexBreadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Guides", url: "/blog" }
+  ];
+
+  const indexSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      getLocalBusinessSchema(),
+      getBreadcrumbSchema(indexBreadcrumbs)
+    ]
+  };
+
   // Blog Index
   return (
     <div className="blog-page-root">
+      <SEOHead
+        title="Restoration Guides & Diagnostics | FloodMasters"
+        description="Practical water damage restoration, moisture diagnostics, subfloor drying, and insurance claims guides for Central Texas homeowners and businesses."
+        canonicalPath="/blog"
+        ogType="website"
+        ogImage="/images/process/documentation_clean.webp"
+        schema={indexSchema}
+      />
+
       {/* HERO WITH BACKGROUND */}
       <section className="blog-hero">
         <div className="blog-hero-bg-wrap">
@@ -182,6 +267,9 @@ export default function BlogPage({ articleSlug, onNavigate }) {
             src="/images/process/documentation_clean.webp"
             alt="Restoration technician logging psychrometric moisture records"
             className="blog-hero-bg"
+            width="1536"
+            height="1024"
+            fetchpriority="high"
           />
           <div className="blog-hero-overlay"></div>
         </div>
@@ -219,7 +307,14 @@ export default function BlogPage({ articleSlug, onNavigate }) {
                 onClick={(e) => handleNav(`/blog/${art.slug}`, e)}
               >
                 <div className="blog-img-wrap">
-                  <img src={art.image} alt={art.title} className="blog-img" />
+                  <img
+                    src={art.image}
+                    alt={art.title}
+                    className="blog-img"
+                    width="600"
+                    height="400"
+                    loading="lazy"
+                  />
                   <span className="blog-category-badge">{art.category}</span>
                 </div>
                 <div className="blog-card-body">

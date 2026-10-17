@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { companyData } from '../../data/companyData';
+import SEOHead from '../SEOHead';
+import { getLocalBusinessSchema, getFAQSchema } from '../../utils/schemaGenerators';
 import './HomePage.css';
 
 export default function HomePage({ onNavigate }) {
@@ -46,34 +48,54 @@ export default function HomePage({ onNavigate }) {
     {
       title: "Burst Pipes & Plumbing Failures",
       desc: "High-pressure supply lines rupture inside ceilings and wall cavities, sending gallons of water across subfloors in minutes.",
-      image: "/images/editorial/burst_pipe_kitchen_flood.jpg"
+      image: "/images/editorial/burst_pipe_kitchen_flood.webp"
     },
     {
       title: "AC Condensate & Slab Leaks",
       desc: "During prolonged Texas cooling seasons, drain line backups and concealed foundation plumbing seep under flooring undetected.",
-      image: "/images/editorial/blog_floors.jpg"
+      image: "/images/editorial/blog_floors.webp"
     },
     {
       title: "Storm Intrusion & Heavy Rain",
       desc: "Severe weather compromises roof eaves and thresholds, saturating drywall framing and insulation with exterior runoff.",
-      image: "/images/services/storm_water_intrusion.jpg"
+      image: "/images/services/storm_water_intrusion.webp"
     },
     {
       title: "Category 3 Sewage & Blackwater",
       desc: "Sanitary sewer line backflows introduce biohazardous pathogens requiring rigorous biocidal treatment and containment.",
-      image: "/images/services/sewage_backup_containment.jpg"
+      image: "/images/services/sewage_backup_containment.webp"
     }
   ];
 
+  const combinedSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      getLocalBusinessSchema(),
+      getFAQSchema(faqs)
+    ]
+  };
+
   return (
     <div className="homepage-root">
+      <SEOHead
+        title="24/7 Water Damage Restoration Temple TX | FloodMasters"
+        description="Veteran-owned 24/7 water damage restoration, emergency water extraction, and structural drying across Temple, Waco, Belton, and Central Texas."
+        canonicalPath="/"
+        ogType="website"
+        ogImage="/images/hero/hero_tech_clean.webp"
+        schema={combinedSchema}
+      />
+
       {/* SECTION 1: Cinematic Emergency Hero */}
       <section className="hp-hero" aria-label="Emergency Mitigation Hero">
         <div className="hp-hero-image-wrap">
           <img
-            src="/images/hero/hero_water_mitigation.jpg"
-            alt="24 Hr FloodMasters emergency water extraction technician on site"
+            src="/images/hero/hero_water_mitigation.webp"
+            alt="24 Hr FloodMasters emergency water extraction technician on site in Central Texas"
             className="hp-hero-bg-img"
+            width="1376"
+            height="768"
+            fetchpriority="high"
           />
           <div className="hp-hero-overlay"></div>
         </div>
@@ -183,9 +205,12 @@ export default function HomePage({ onNavigate }) {
         <div className="container split-container">
           <div className="split-visual">
             <img
-              src="/images/equipment/structural_drying_setup.jpg"
+              src="/images/equipment/structural_drying_setup.webp"
               alt="High-capacity commercial structural drying air movers in residential property"
               className="split-img"
+              width="1376"
+              height="768"
+              loading="lazy"
             />
             <div className="split-badge-overlay">
               <strong>Subsurface Drying Science</strong>
@@ -247,8 +272,11 @@ export default function HomePage({ onNavigate }) {
             <div className="matrix-row">
               <div className="matrix-image-box">
                 <img
-                  src="/images/process/moisture_detection_thermal.jpg"
+                  src="/images/process/moisture_detection_thermal.webp"
                   alt="Technician measuring drywall moisture with thermal imager and pinless sensor"
+                  width="1376"
+                  height="768"
+                  loading="lazy"
                 />
               </div>
               <div className="matrix-details">
@@ -271,8 +299,11 @@ export default function HomePage({ onNavigate }) {
             <div className="matrix-row reverse">
               <div className="matrix-image-box">
                 <img
-                  src="/images/services/commercial_restoration.jpg"
+                  src="/images/services/commercial_restoration.webp"
                   alt="Commercial corridor water damage mitigation with desiccant drying and safety markers"
+                  width="1376"
+                  height="768"
+                  loading="lazy"
                 />
               </div>
               <div className="matrix-details">
@@ -295,8 +326,11 @@ export default function HomePage({ onNavigate }) {
             <div className="matrix-row">
               <div className="matrix-image-box">
                 <img
-                  src="/images/services/fire_smoke_mitigation.jpg"
+                  src="/images/services/fire_smoke_mitigation.webp"
                   alt="Restoration technician sponging soot and stabilizing fire damage in residence"
+                  width="1376"
+                  height="768"
+                  loading="lazy"
                 />
               </div>
               <div className="matrix-details">
@@ -319,8 +353,11 @@ export default function HomePage({ onNavigate }) {
             <div className="matrix-row reverse">
               <div className="matrix-image-box">
                 <img
-                  src="/images/services/mold_containment.jpg"
+                  src="/images/services/mold_containment.webp"
                   alt="Containment barrier and HEPA air scrubber in residence under negative air pressure"
+                  width="1376"
+                  height="768"
+                  loading="lazy"
                 />
               </div>
               <div className="matrix-details">
@@ -357,7 +394,7 @@ export default function HomePage({ onNavigate }) {
             {damageTypes.map((item, index) => (
               <div key={index} className="scenario-item">
                 <div className="scenario-img-wrap">
-                  <img src={item.image} alt={item.title} className="scenario-img" />
+                  <img src={item.image} alt={item.title} className="scenario-img" width="1376" height="768" loading="lazy" />
                 </div>
                 <div className="scenario-meta">
                   <h4>{item.title}</h4>
@@ -409,9 +446,12 @@ export default function HomePage({ onNavigate }) {
       <section className="hp-interlude" aria-label="Mitigation Philosophy Interlude">
         <div className="hp-interlude-bg-wrap">
           <img
-            src="/images/illustrative/restored_clean_interior.jpg"
+            src="/images/illustrative/restored_clean_interior.webp"
             alt="Pristine, dry modern residential home interior restored after mitigation"
             className="hp-interlude-bg"
+            width="1376"
+            height="768"
+            loading="lazy"
           />
           <div className="hp-interlude-overlay"></div>
         </div>
@@ -460,9 +500,12 @@ export default function HomePage({ onNavigate }) {
 
           <div className="insurance-media">
             <img
-              src="/images/process/insurance_documentation.jpg"
+              src="/images/process/insurance_documentation.webp"
               alt="Inspector recording moisture readings on electronic tablet in Texas residence"
               className="insurance-img"
+              width="1376"
+              height="768"
+              loading="lazy"
             />
           </div>
         </div>
@@ -523,7 +566,7 @@ export default function HomePage({ onNavigate }) {
           <div className="guides-grid">
             <div className="guide-card" onClick={(e) => handleNav('/blog/water-damage-behind-walls', e)}>
               <div className="guide-img-wrap">
-                <img src="/images/editorial/blog_walls.jpg" alt="Water damage staining along wall baseboard" />
+                <img src="/images/editorial/blog_walls.webp" alt="Water damage staining along wall baseboard" width="1536" height="1024" loading="lazy" />
               </div>
               <div className="guide-body">
                 <span className="guide-category">Moisture Diagnostics</span>
@@ -535,7 +578,7 @@ export default function HomePage({ onNavigate }) {
 
             <div className="guide-card" onClick={(e) => handleNav('/blog/signs-water-damage-under-floor', e)}>
               <div className="guide-img-wrap">
-                <img src="/images/editorial/blog_floors.jpg" alt="Warped wood flooring showing subfloor moisture" />
+                <img src="/images/editorial/blog_floors.webp" alt="Warped wood flooring showing subfloor moisture" width="1536" height="1024" loading="lazy" />
               </div>
               <div className="guide-body">
                 <span className="guide-category">Flooring Science</span>
@@ -547,7 +590,7 @@ export default function HomePage({ onNavigate }) {
 
             <div className="guide-card" onClick={(e) => handleNav('/blog/new-vs-old-water-damage', e)}>
               <div className="guide-img-wrap">
-                <img src="/images/editorial/blog_ceiling.jpg" alt="Ceiling water stains comparing old and new leaks" />
+                <img src="/images/editorial/blog_ceiling.webp" alt="Ceiling water stains comparing old and new leaks" width="1536" height="1024" loading="lazy" />
               </div>
               <div className="guide-body">
                 <span className="guide-category">Claims Assessment</span>

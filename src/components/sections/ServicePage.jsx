@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { companyData } from '../../data/companyData';
+import SEOHead from '../SEOHead';
+import { getServiceSchema, getFAQSchema, getBreadcrumbSchema } from '../../utils/schemaGenerators';
 import './ServicePage.css';
 
 export default function ServicePage({ serviceSlug, onNavigate }) {
@@ -25,9 +27,9 @@ export default function ServicePage({ serviceSlug, onNavigate }) {
       introParagraph2: "By 48 hours, microbial amplification initiates. Ambient humidity spikes above 65% RH (relative humidity), allowing dormant fungal spores to germinate along baseboard perimeters and behind damp insulation. 24 Hr FloodMasters eliminates this risk by immediately executing bulk water extraction, establishing negative-air containment, and applying EPA-registered botanical antimicrobials before deep structural drying.",
       visual1: "/images/services/water_tech_clean.webp",
       visual1Caption: "Certified technician placing high-velocity axial air movers along water-stained drywall perimeters in Temple, TX.",
-      visual2: "/images/equipment/structural_drying_setup.jpg",
+      visual2: "/images/equipment/structural_drying_setup.webp",
       visual2Caption: "Heavy-duty commercial dehumidifiers and drying ductwork arranged in a residential living space.",
-      visual3: "/images/editorial/burst_pipe_kitchen_flood.jpg",
+      visual3: "/images/editorial/burst_pipe_kitchen_flood.webp",
       visual3Caption: "Ruptured supply line water loss spreading across kitchen cabinetry and hardwood flooring.",
       visual4: "/images/process/documentation_clean.webp",
       visual4Caption: "Digital psychrometric assessment comparing room moisture to dry standards.",
@@ -110,18 +112,18 @@ export default function ServicePage({ serviceSlug, onNavigate }) {
       tagline: "Psychrometric Science & Cavity Dehumidification",
       headline: "Scientific structural drying and moisture monitoring across Central Texas.",
       subtext: "Surfaces may appear dry while wall studs, floor joists, and concrete slabs hold critical moisture. We apply psychrometric science to pull vapor pressure out of bound building assemblies.",
-      heroBg: "/images/equipment/structural_drying_setup.jpg",
+      heroBg: "/images/equipment/structural_drying_setup.webp",
       heroBadge: "Scientific Psychrometric Monitoring",
       introTitle: "Understanding bound moisture and deep vapor pressure.",
       introParagraph1: "Moisture inside building materials exists in two states: free water (surface liquid easily vacuumed) and bound water (absorbed into the microscopic cellular structures of wood framing, subfloor plywood, and concrete). Standard air drying cannot dislodge bound water because surface evaporation cools the material, causing moisture migration to stall.",
       introParagraph2: "Our structural drying protocol utilizes psychrometrics: the thermodynamic physics of moist air. By manipulating ambient temperature and lowering the air's grains per pound (GPP) with commercial LGR dehumidifiers, we generate an intense vapor pressure gradient. Moisture deep within timber framing is forced to migrate to the surface, where high-velocity axial air movers evaporate it instantly into the dehumidifier's collection chamber.",
-      visual1: "/images/equipment/structural_drying_setup.jpg",
+      visual1: "/images/equipment/structural_drying_setup.webp",
       visual1Caption: "LGR dehumidifier and axial air movers maintaining continuous negative vapor pressure.",
       visual2: "/images/process/documentation_clean.webp",
       visual2Caption: "Technician logging digital moisture content percentages against dry standards.",
       visual3: "/images/hero/hero_tech_clean.webp",
       visual3Caption: "Inspecting framing moisture behind opened baseboards in residential living space.",
-      visual4: "/images/editorial/blog_floors.jpg",
+      visual4: "/images/editorial/blog_floors.webp",
       visual4Caption: "Subfloor moisture testing to prevent long-term hardwood cupping and crowning.",
       equipmentHighlights: [
         { name: "Desiccant & LGR Dehumidifiers", desc: "Producing super-dry air with low vapor pressure to penetrate dense timber and brick." },
@@ -186,12 +188,12 @@ export default function ServicePage({ serviceSlug, onNavigate }) {
       tagline: "Large-Loss Commercial & Institutional Mitigation",
       headline: "Commercial water damage mitigation engineered for business continuity.",
       subtext: "Every hour of corporate, medical, or retail downtime incurs severe revenue loss. We execute structured containment, high-capacity water removal, and discreet evening drying across Central Texas.",
-      heroBg: "/images/services/commercial_restoration.jpg",
+      heroBg: "/images/services/commercial_restoration.webp",
       heroBadge: "Corporate, Medical & Retail Response",
       introTitle: "Minimizing business interruption with disciplined containment.",
       introParagraph1: "Commercial properties in Temple, Killeen, Waco, and Round Rock face complex challenges during water losses: open floorplans, suspended acoustical ceilings, commercial power grids, sensitive IT server rooms, and strict OSHA/ADA regulatory standards. A water pipe break on the top floor of an office complex can disrupt dozens of tenant businesses simultaneously.",
       introParagraph2: "24 Hr FloodMasters deploys large-loss commercial mitigation teams with industrial desiccant dehumidifiers, high-capacity generator support, and zippered poly containment walls. We isolate wet zones from active client areas, allowing corporate offices, medical clinics, and retail storefronts to maintain daily operations while mitigation progresses safely behind containment barriers.",
-      visual1: "/images/services/commercial_restoration.jpg",
+      visual1: "/images/services/commercial_restoration.webp",
       visual1Caption: "Commercial corridor water mitigation with safety hazard cones and industrial desiccant air movers.",
       visual2: "/images/services/response_night_clean.webp",
       visual2Caption: "Emergency commercial response fleet dispatched on site in Central Texas.",
@@ -273,7 +275,7 @@ export default function ServicePage({ serviceSlug, onNavigate }) {
       visual2Caption: "Sanitizing affected subflooring with hospital-grade antimicrobial solutions.",
       visual3: "/images/process/documentation_clean.webp",
       visual3Caption: "Documenting affected porous materials and contaminated boundaries for claims records.",
-      visual4: "/images/editorial/burst_pipe_kitchen_flood.jpg",
+      visual4: "/images/editorial/burst_pipe_kitchen_flood.webp",
       visual4Caption: "Interior floodwater containment preventing cross-contamination to adjoining dry spaces.",
       equipmentHighlights: [
         { name: "Heavy Blackwater Suction Extractors", desc: "Sealed vacuum systems designed to pump biohazardous liquids directly into containment tanks." },
@@ -423,7 +425,7 @@ export default function ServicePage({ serviceSlug, onNavigate }) {
       visual1Caption: "Zippered poly containment barrier under continuous negative air pressure in residential hallway.",
       visual2: "/images/services/original_mold_service.jpg",
       visual2Caption: "Technician sealing containment perimeter and inspecting structural framing in protective PPE.",
-      visual3: "/images/equipment/structural_drying_setup.jpg",
+      visual3: "/images/equipment/structural_drying_setup.webp",
       visual3Caption: "Running commercial dehumidification to drop ambient RH below 50% to prevent fungal regrowth.",
       visual4: "/images/process/documentation_clean.webp",
       visual4Caption: "Recording moisture mapping logs to ensure framing is fully dry before containment takedown.",
@@ -501,7 +503,7 @@ export default function ServicePage({ serviceSlug, onNavigate }) {
       visual2Caption: "Recording moisture percentages and documenting water damage perimeters with camera records.",
       visual3: "/images/hero/hero_tech_clean.webp",
       visual3Caption: "Marking moisture boundaries along baseboards to provide visual proof for adjusters.",
-      visual4: "/images/equipment/structural_drying_setup.jpg",
+      visual4: "/images/equipment/structural_drying_setup.webp",
       visual4Caption: "Documenting industrial equipment deployment hours for transparent mitigation billing.",
       equipmentHighlights: [
         { name: "FLIR Thermal Imaging Cameras", desc: "Providing infrared visual documentation of hidden moisture boundaries behind finished walls." },
@@ -566,12 +568,48 @@ export default function ServicePage({ serviceSlug, onNavigate }) {
 
   const currentKnowledge = serviceKnowledge[serviceSlug] || serviceKnowledge["emergency-water-mitigation"];
 
+  const serviceBreadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/#featured-services" },
+    { name: service.title, url: `/${service.slug}` }
+  ];
+
+  const combinedServiceSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      getServiceSchema(service, service.slug),
+      getBreadcrumbSchema(serviceBreadcrumbs),
+      getFAQSchema(currentKnowledge.faqs)
+    ]
+  };
+
+  const pageTitle = `${service.title} | 24 Hr FloodMasters`;
+  const metaDesc = (service.summary.length >= 140 && service.summary.length <= 160)
+    ? service.summary
+    : `${service.summary} Available 24/7 in Temple, Waco, Belton & Central Texas. Call (254) 482-1151.`;
+
   return (
     <div className="service-page-root">
+      <SEOHead
+        title={pageTitle}
+        description={metaDesc}
+        canonicalPath={`/${service.slug}`}
+        ogType="article"
+        ogImage={currentKnowledge.heroBg}
+        schema={combinedServiceSchema}
+      />
+
       {/* SERVICE HERO WITH PHOTOGRAPHIC BACKGROUND */}
       <section className="svc-hero">
         <div className="svc-hero-bg-wrap">
-          <img src={currentKnowledge.heroBg} alt={service.title} className="svc-hero-bg" />
+          <img
+            src={currentKnowledge.heroBg}
+            alt={service.title}
+            className="svc-hero-bg"
+            width="1536"
+            height="1024"
+            fetchpriority="high"
+          />
           <div className="svc-hero-overlay"></div>
         </div>
         <div className="container svc-hero-content">
@@ -622,11 +660,11 @@ export default function ServicePage({ serviceSlug, onNavigate }) {
 
           <div className="svc-intro-visuals">
             <div className="visual-card">
-              <img src={currentKnowledge.visual1} alt={currentKnowledge.visual1Caption} className="visual-img" />
+              <img src={currentKnowledge.visual1} alt={currentKnowledge.visual1Caption} className="visual-img" width="1536" height="1024" loading="lazy" />
               <p className="visual-caption">{currentKnowledge.visual1Caption}</p>
             </div>
             <div className="visual-card secondary-visual">
-              <img src={currentKnowledge.visual2} alt={currentKnowledge.visual2Caption} className="visual-img" />
+              <img src={currentKnowledge.visual2} alt={currentKnowledge.visual2Caption} className="visual-img" width="1376" height="768" loading="lazy" />
               <p className="visual-caption">{currentKnowledge.visual2Caption}</p>
             </div>
           </div>
@@ -661,11 +699,11 @@ export default function ServicePage({ serviceSlug, onNavigate }) {
       <section className="section-light svc-dual-proof">
         <div className="container dual-proof-grid">
           <div className="dual-img-col">
-            <img src={currentKnowledge.visual3} alt="Field loss inspection" className="dual-img" />
+            <img src={currentKnowledge.visual3} alt="Field loss inspection" className="dual-img" width="1376" height="768" loading="lazy" />
             <span className="dual-caption">{currentKnowledge.visual3Caption}</span>
           </div>
           <div className="dual-img-col">
-            <img src={currentKnowledge.visual4} alt="Active drying progress" className="dual-img" />
+            <img src={currentKnowledge.visual4} alt="Active drying progress" className="dual-img" width="1536" height="1024" loading="lazy" />
             <span className="dual-caption">{currentKnowledge.visual4Caption}</span>
           </div>
         </div>
@@ -732,7 +770,7 @@ export default function ServicePage({ serviceSlug, onNavigate }) {
           <div className="svc-regional-tri-grid">
             <div className="regional-tri-card">
               <div className="tri-img-wrap">
-                <img src="/images/services/response_night_clean.webp" alt="Bell County emergency dispatch" className="tri-img" />
+                <img src="/images/services/response_night_clean.webp" alt="Bell County emergency dispatch" className="tri-img" width="1536" height="1024" loading="lazy" />
                 <span className="tri-badge">Bell County Hub</span>
               </div>
               <div className="tri-info">
@@ -744,7 +782,7 @@ export default function ServicePage({ serviceSlug, onNavigate }) {
 
             <div className="regional-tri-card">
               <div className="tri-img-wrap">
-                <img src="/images/services/commercial_restoration.jpg" alt="McLennan County commercial mitigation" className="tri-img" />
+                <img src="/images/services/commercial_restoration.webp" alt="McLennan County commercial mitigation" className="tri-img" width="1376" height="768" loading="lazy" />
                 <span className="tri-badge">McLennan County Hub</span>
               </div>
               <div className="tri-info">
@@ -756,7 +794,7 @@ export default function ServicePage({ serviceSlug, onNavigate }) {
 
             <div className="regional-tri-card">
               <div className="tri-img-wrap">
-                <img src="/images/equipment/structural_drying_setup.jpg" alt="Williamson County large loss drying" className="tri-img" />
+                <img src="/images/equipment/structural_drying_setup.webp" alt="Williamson County large loss drying" className="tri-img" width="1376" height="768" loading="lazy" />
                 <span className="tri-badge">Williamson County Depot</span>
               </div>
               <div className="tri-info">

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { companyData } from '../../data/companyData';
+import SEOHead from '../SEOHead';
+import { getBreadcrumbSchema, getLocalBusinessSchema } from '../../utils/schemaGenerators';
 import './GalleryPage.css';
 
 export default function GalleryPage({ onNavigate }) {
@@ -28,7 +30,7 @@ export default function GalleryPage({ onNavigate }) {
       title: "Commercial LGR Dehumidifier Grid Setup",
       category: "Equipment & Drying",
       filterCat: "Equipment & Drying",
-      image: "/images/equipment/structural_drying_setup.jpg",
+      image: "/images/equipment/structural_drying_setup.webp",
       caption: "Heavy-duty commercial Low Grain Refrigerant dehumidifiers and layflat ducting arranged to pull moisture from gypsum wall cavities and concrete subfloor.",
       location: "Belton, TX",
       techSpecs: "130 PPD @ AHAM · Sealed drying chamber"
@@ -73,7 +75,7 @@ export default function GalleryPage({ onNavigate }) {
       title: "Kitchen Subfloor Water Loss Stabilization",
       category: "Water & Extraction",
       filterCat: "Water & Extraction",
-      image: "/images/editorial/burst_pipe_kitchen_flood.jpg",
+      image: "/images/editorial/burst_pipe_kitchen_flood.webp",
       caption: "Immediate mitigation after an under-sink reverse osmosis line failure threatened to delaminate hardwood flooring and swell custom cabinetry.",
       location: "Harker Heights, TX",
       techSpecs: "Subfloor mat vacuum system · Moisture barrier preservation"
@@ -91,7 +93,7 @@ export default function GalleryPage({ onNavigate }) {
       title: "Large-Scale Commercial Facility Dehumidification",
       category: "Equipment & Drying",
       filterCat: "Equipment & Drying",
-      image: "/images/services/commercial_restoration.jpg",
+      image: "/images/services/commercial_restoration.webp",
       caption: "Industrial desiccant and LGR units maintaining safe relative humidity levels across open commercial office floors to prevent business interruption.",
       location: "Round Rock, TX",
       techSpecs: "Continuous psychrometric monitoring · GPP reduction"
@@ -100,7 +102,7 @@ export default function GalleryPage({ onNavigate }) {
       title: "Certified Dry Interior Living Space",
       category: "Water & Extraction",
       filterCat: "Water & Extraction",
-      image: "/images/illustrative/restored_clean_interior.jpg",
+      image: "/images/illustrative/restored_clean_interior.webp",
       caption: "Residential living room verified at dry standard with zero elevated moisture readings, certified safe for family reoccupancy.",
       location: "Hewitt, TX",
       techSpecs: "Certified dry standard reached · Antimicrobial safe seal"
@@ -111,15 +113,40 @@ export default function GalleryPage({ onNavigate }) {
     ? galleryItems
     : galleryItems.filter(item => item.filterCat === activeCategory);
 
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Equipment & Field Gallery", url: "/gallery" }
+  ];
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      getLocalBusinessSchema(),
+      getBreadcrumbSchema(breadcrumbs)
+    ]
+  };
+
   return (
     <div className="gallery-page-root">
+      <SEOHead
+        title="Restoration Equipment & Gallery | FloodMasters"
+        description="View 24 Hr FloodMasters field restoration equipment, thermal imaging diagnostics, and structural drying setups in Temple and Central Texas."
+        canonicalPath="/gallery"
+        ogType="website"
+        ogImage="/images/services/water_tech_clean.webp"
+        schema={schema}
+      />
+
       {/* HERO WITH BACKGROUND */}
       <section className="gallery-hero">
         <div className="gallery-hero-bg-wrap">
           <img
             src="/images/services/water_tech_clean.webp"
-            alt="Field technician staging water extraction equipment"
+            alt="Field technician staging water extraction equipment in Central Texas"
             className="gallery-hero-bg"
+            width="1536"
+            height="1024"
+            fetchpriority="high"
           />
           <div className="gallery-hero-overlay"></div>
         </div>
@@ -169,7 +196,14 @@ export default function GalleryPage({ onNavigate }) {
             {filteredItems.map((item, idx) => (
               <div key={idx} className="gallery-card">
                 <div className="gallery-img-wrap">
-                  <img src={item.image} alt={item.title} className="gallery-img" />
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="gallery-img"
+                    width="600"
+                    height="400"
+                    loading="lazy"
+                  />
                   <span className="gallery-category-pill">{item.category}</span>
                   <span className="gallery-loc-pill">{item.location}</span>
                 </div>

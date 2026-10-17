@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { companyData } from '../../data/companyData';
+import SEOHead from '../SEOHead';
+import { getBreadcrumbSchema, getLocalBusinessSchema } from '../../utils/schemaGenerators';
 import './ServiceAreasPage.css';
 
 export default function ServiceAreasPage({ onNavigate }) {
@@ -17,15 +19,40 @@ export default function ServiceAreasPage({ onNavigate }) {
     ? companyData.serviceAreas
     : companyData.serviceAreas.filter(a => a.county === selectedCounty);
 
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Service Areas", url: "/service-areas" }
+  ];
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      getLocalBusinessSchema(),
+      getBreadcrumbSchema(breadcrumbs)
+    ]
+  };
+
   return (
     <div className="service-areas-root">
+      <SEOHead
+        title="Central Texas Service Areas | 24 Hr FloodMasters"
+        description="24/7 emergency water damage restoration across Temple, Waco, Belton, Killeen, Salado, Round Rock, and 15+ Central Texas cities. Call (254) 482-1151."
+        canonicalPath="/service-areas"
+        ogType="website"
+        ogImage="/images/services/commercial_restoration.webp"
+        schema={schema}
+      />
+
       {/* HERO WITH RICH BACKGROUND */}
       <section className="areas-hero">
         <div className="areas-hero-bg-wrap">
           <img
-            src="/images/services/commercial_restoration.jpg"
+            src="/images/services/commercial_restoration.webp"
             alt="Central Texas commercial property water restoration response"
             className="areas-hero-bg"
+            width="1376"
+            height="768"
+            fetchpriority="high"
           />
           <div className="areas-hero-overlay"></div>
         </div>
@@ -97,9 +124,9 @@ export default function ServiceAreasPage({ onNavigate }) {
               const areaImages = [
                 "/images/hero/hero_tech_clean.webp",
                 "/images/services/water_tech_clean.webp",
-                "/images/equipment/structural_drying_setup.jpg",
-                "/images/editorial/burst_pipe_kitchen_flood.jpg",
-                "/images/services/commercial_restoration.jpg",
+                "/images/equipment/structural_drying_setup.webp",
+                "/images/editorial/burst_pipe_kitchen_flood.webp",
+                "/images/services/commercial_restoration.webp",
                 "/images/process/documentation_clean.webp"
               ];
               const cardImg = areaImages[idx % areaImages.length];
@@ -107,7 +134,14 @@ export default function ServiceAreasPage({ onNavigate }) {
               return (
                 <div key={idx} className="area-card">
                   <div className="area-card-thumb-wrap">
-                    <img src={cardImg} alt={`${area.name} emergency water mitigation crew`} className="area-card-thumb" />
+                    <img
+                      src={cardImg}
+                      alt={`${area.name} emergency water mitigation crew`}
+                      className="area-card-thumb"
+                      width="600"
+                      height="400"
+                      loading="lazy"
+                    />
                     <span className="area-card-thumb-tag">{area.county}</span>
                     <span className="area-card-thumb-eta">{area.dispatchTime.split(' ')[0]} ETA</span>
                   </div>
@@ -193,6 +227,9 @@ export default function ServiceAreasPage({ onNavigate }) {
               src="/images/services/response_night_clean.webp"
               alt="24 Hr FloodMasters regional emergency dispatch response"
               className="showcase-img"
+              width="1536"
+              height="1024"
+              loading="lazy"
             />
             <span className="showcase-caption">24 Hr FloodMasters response unit arriving on scene in Bell County.</span>
           </div>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { companyData } from '../../data/companyData';
+import SEOHead from '../SEOHead';
+import { getBreadcrumbSchema, getLocalBusinessSchema } from '../../utils/schemaGenerators';
 import './ContactPage.css';
 
 export default function ContactPage({ onNavigate: _onNavigate }) {
@@ -29,8 +31,30 @@ export default function ContactPage({ onNavigate: _onNavigate }) {
 
   const serviceCityNames = companyData.serviceAreas.map(a => typeof a === 'string' ? a : a.name);
 
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Contact Us", url: "/contact-us" }
+  ];
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      getLocalBusinessSchema(),
+      getBreadcrumbSchema(breadcrumbs)
+    ]
+  };
+
   return (
     <div className="contact-page-root">
+      <SEOHead
+        title="Contact 24 Hr FloodMasters | Emergency Dispatch"
+        description="24/7 direct phone dispatch: (254) 482-1151. Immediate water extraction and emergency property mitigation in Temple, Waco, Belton, and Central Texas."
+        canonicalPath="/contact-us"
+        ogType="website"
+        ogImage="/images/services/response_night_clean.webp"
+        schema={schema}
+      />
+
       {/* HERO WITH BACKGROUND */}
       <section className="contact-hero">
         <div className="contact-hero-bg-wrap">
@@ -38,6 +62,9 @@ export default function ContactPage({ onNavigate: _onNavigate }) {
             src="/images/services/response_night_clean.webp"
             alt="24 Hr FloodMasters emergency dispatch vehicle ready for action"
             className="contact-hero-bg"
+            width="1536"
+            height="1024"
+            fetchpriority="high"
           />
           <div className="contact-hero-overlay"></div>
         </div>
@@ -257,6 +284,30 @@ export default function ContactPage({ onNavigate: _onNavigate }) {
                 <li>Keep occupants, children, and pets away from contaminated or saturated zones.</li>
               </ol>
             </div>
+
+            <div className="info-box">
+              <h4>Central Texas Service Coverage</h4>
+              <p style={{ fontSize: '0.88rem', color: '#555555', marginBottom: '0.8rem', lineHeight: '1.5' }}>
+                We dispatch emergency mitigation crews across Bell, McLennan, Coryell, Williamson, and Milam Counties:
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                {serviceCityNames.map((city, idx) => (
+                  <span
+                    key={idx}
+                    style={{
+                      fontSize: '0.75rem',
+                      background: '#F0F4FF',
+                      color: '#035BFE',
+                      padding: '0.2rem 0.55rem',
+                      borderRadius: '2px',
+                      fontWeight: 600
+                    }}
+                  >
+                    {city}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -266,9 +317,12 @@ export default function ContactPage({ onNavigate: _onNavigate }) {
         <div className="container fleet-grid">
           <div className="fleet-img-wrap">
             <img
-              src="/images/services/commercial_restoration.jpg"
-              alt="24 Hr FloodMasters commercial drying deployment"
+              src="/images/services/commercial_restoration.webp"
+              alt="24 Hr FloodMasters commercial drying deployment in Central Texas"
               className="fleet-img"
+              width="1376"
+              height="768"
+              loading="lazy"
             />
           </div>
           <div className="fleet-text">

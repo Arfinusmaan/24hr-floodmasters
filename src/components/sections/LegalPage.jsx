@@ -1,11 +1,32 @@
 import React from 'react';
 import { companyData } from '../../data/companyData';
+import SEOHead from '../SEOHead';
+import { getBreadcrumbSchema } from '../../utils/schemaGenerators';
 
 export default function LegalPage({ pageType, onNavigate: _onNavigate }) {
   const isPrivacy = pageType === 'privacy';
+  const pageTitle = isPrivacy ? 'Privacy Policy | 24 Hr FloodMasters' : 'Terms of Service | 24 Hr FloodMasters';
+  const metaDesc = isPrivacy
+    ? 'Privacy Policy for 24 Hr FloodMasters LLC. Learn how customer information is collected and protected during emergency property restoration.'
+    : 'Terms of Service for 24 Hr FloodMasters LLC. Service agreements, emergency dispatch standards, and insurance billing protocols in Central Texas.';
+  const canonical = isPrivacy ? '/privacy-policy' : '/terms';
+
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: isPrivacy ? "Privacy Policy" : "Terms of Service", url: canonical }
+  ];
 
   return (
     <div className="legal-page-root" style={{ backgroundColor: 'var(--surface-charcoal)', minHeight: '80vh' }}>
+      <SEOHead
+        title={pageTitle}
+        description={metaDesc}
+        canonicalPath={canonical}
+        ogType="website"
+        ogImage="/images/brand/logo.png"
+        schema={getBreadcrumbSchema(breadcrumbs)}
+      />
+
       <section style={{ padding: '6rem 0 3rem', borderBottom: '1px solid var(--border-dark)' }}>
         <div className="container-narrow">
           <span className="status-pill">Official Documentation</span>
