@@ -138,13 +138,13 @@ export default function App({ initialPath }) {
       </main>
       <Footer onNavigate={handleNavigate} />
 
-      {/* Viewport-fixed Mobile Bottom Bar (Hidden on Desktop, revealed on scroll on Mobile, hidden when nav drawer is open) */}
-      <MobileBottomBar
+      {/* Viewport-fixed Mobile Bottom Bar (Hidden for now) */}
+      {/* <MobileBottomBar
         onOpenQuote={() => handleNavigate('/contact-us')}
         phoneNumber={companyData.phone}
         phoneRaw={companyData.phoneRaw}
         isNavOpen={mobileMenuOpen}
-      />
+      /> */}
     </div>
   );
 }
